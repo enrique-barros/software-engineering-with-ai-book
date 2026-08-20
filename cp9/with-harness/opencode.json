@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "plugin": [".opencode/harness/harness-python-ast.js"],
+  "permission": {
+    "read": {
+      "*": "allow",
+      "*opencode.json": "allow",
+      ".git/**": "allow"
+    },
+    "edit": {
+      "*": "allow",
+      "*opencode.json": "ask"
+    },
+    "bash": {
+      "*": "allow",
+      "git *": "allow"
+    }
+  }
+}
