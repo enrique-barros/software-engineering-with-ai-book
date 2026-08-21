@@ -4,15 +4,15 @@
   "permission": {
     "read": {
       "*": "allow",
-      "*opencode.json": "allow",
+      "opencode.json": "allow",
       ".git/**": "allow"
     },
     "edit": {
       "*": "allow",
-      "*opencode.json": "ask"
+      "opencode.json": "ask"
     },
     "bash": {
-      "*": "allow",
+      "*": "ask",
       "git *": "allow"
     }
   }

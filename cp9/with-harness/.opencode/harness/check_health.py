@@ -12,19 +12,20 @@ Codigos de salida:
 
 import ast
 import sys
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 AUDIT_LOG = Path(__file__).resolve().parent / "harness_audit.log"
 
 
 def log_failure(filepath: str, message: str) -> None:
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    timestamp = datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
     entry = (
         f"[{timestamp}] FILE={filepath} RESULT=FAILED\n"
         f"ERROR: {message}\n"
         f"{'-' * 60}\n"
     )
+
     AUDIT_LOG.parent.mkdir(parents=True, exist_ok=True)
     with AUDIT_LOG.open("a", encoding="utf-8") as fh:
         fh.write(entry)
