@@ -1,0 +1,9 @@
+dist/
+node_modules/
+.astro/
+.agents/
+docs/
+scripts/
+opencode.json
+AGENTS.md
+skills-lock.json

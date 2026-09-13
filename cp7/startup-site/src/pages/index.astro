@@ -1,0 +1,168 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Section from "../components/Section.astro";
+import Button from "../components/Button.astro";
+import HeroPanel from "../components/HeroPanel.astro";
+import FeatureIcon from "../components/FeatureIcon.astro";
+
+const sections = await getCollection("sections");
+
+// Orden de bloques de la home: coincide con los ids sembrados en `sections`.
+const order = ["hero-home", "features-home", "testimonials-home", "cta-home"];
+
+const blocks = order
+  .map((id) => sections.find((section) => section.id === id))
+  .filter((section): section is NonNullable<typeof section> =>
+    Boolean(section),
+  );
+
+const hero = blocks.find((block) => block.data.type === "hero");
+
+if (!hero) {
+  throw new Error(
+    "La home requiere la sección 'hero-home' en la colección 'sections'",
+  );
+}
+
+const features = blocks.find((block) => block.data.type === "features");
+const testimonials = blocks.find((block) => block.data.type === "testimonials");
+const cta = blocks.find((block) => block.data.type === "cta");
+
+const heroData = hero.data;
+---
+
+<BaseLayout>
+  {heroData.type === "hero" && (
+    <Section padding="top">
+      <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,30rem)]">
+        <div>
+          <h1 class="text-ink max-w-[var(--measure)] text-5xl font-semibold tracking-display">
+            {heroData.title}
+          </h1>
+          {heroData.lead && (
+            <p class="text-ink-muted mt-5 max-w-[var(--measure)] text-lg leading-relaxed">
+              {heroData.lead}
+            </p>
+          )}
+          <div class="mt-8 flex flex-wrap gap-3">
+            {heroData.cta && (
+              <Button href={heroData.cta.href} variant="primary" size="lg">
+                {heroData.cta.label}
+              </Button>
+            )}
+            {heroData.secondaryCta && (
+              <Button
+                href={heroData.secondaryCta.href}
+                variant="secondary"
+                size="lg"
+              >
+                {heroData.secondaryCta.label}
+              </Button>
+            )}
+          </div>
+        </div>
+        <HeroPanel />
+      </div>
+    </Section>
+  )}
+
+  {features?.data.type === "features" && (
+    <Section
+      id={features.data.id}
+      heading={features.data.title}
+      intro={features.data.intro}
+    >
+      <ul class="border-border bg-surface mt-10 divide-y divide-border rounded-lg border">
+        {features.data.items.map((item) => (
+          <li class="flex flex-col gap-4 p-6 sm:flex-row sm:items-start sm:gap-6">
+            {item.icon && (
+              <span class="bg-primary-muted text-primary flex h-11 w-11 shrink-0 items-center justify-center rounded-md">
+                <FeatureIcon name={item.icon} />
+              </span>
+            )}
+            <div>
+              <h3 class="text-xl font-semibold">{item.title}</h3>
+              <p class="text-ink-muted mt-1.5 max-w-[62ch]">
+                {item.description}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Section>
+  )}
+
+  {testimonials?.data.type === "testimonials" &&
+    (() => {
+      const items = testimonials.data.items;
+      const [lead, ...rest] = items;
+      const twoColumns = rest.length > 0;
+      return (
+        <Section id={testimonials.data.id} heading={testimonials.data.title}>
+          <div
+            class:list={[
+              "mt-10 grid gap-10",
+              twoColumns && "lg:grid-cols-[1.35fr_1fr] lg:gap-14",
+            ]}
+          >
+            {lead && (
+              <figure>
+                <blockquote class="border-primary text-ink border-l-4 pl-6 text-2xl font-medium leading-snug">
+                  {lead.quote}
+                </blockquote>
+                <figcaption class="mt-4 pl-6">
+                  <p class="font-semibold">{lead.author}</p>
+                  {lead.role && (
+                    <p class="text-ink-muted mt-0.5 text-sm">{lead.role}</p>
+                  )}
+                </figcaption>
+              </figure>
+            )}
+            {rest.length > 0 && (
+              <div class="space-y-10">
+                {rest.map((item) => (
+                  <figure>
+                    <blockquote class="text-lg leading-relaxed">
+                      {item.quote}
+                    </blockquote>
+                    <figcaption class="mt-3">
+                      <p class="font-semibold">{item.author}</p>
+                      {item.role && (
+                        <p class="text-ink-muted mt-0.5 text-sm">{item.role}</p>
+                      )}
+                    </figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+          </div>
+        </Section>
+      );
+    })()}
+
+  {cta?.data.type === "cta" && (
+    <Section id={cta.data.id} padding="both" tone="primary">
+      <div class="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <div class="max-w-xl">
+          <h2 class="text-on-primary text-3xl font-semibold tracking-display">
+            {cta.data.title}
+          </h2>
+          {cta.data.lead && (
+            <p class="text-primary-muted mt-3 max-w-[62ch] text-lg leading-relaxed">
+              {cta.data.lead}
+            </p>
+          )}
+        </div>
+        <Button
+          href={cta.data.cta.href}
+          variant="on-primary"
+          size="lg"
+          class="shrink-0"
+        >
+          {cta.data.cta.label}
+        </Button>
+      </div>
+    </Section>
+  )}
+</BaseLayout>

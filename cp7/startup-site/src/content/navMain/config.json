@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "label": "Inicio", "href": "/" },
+    { "label": "Características", "href": "/features/" },
+    { "label": "Sobre nosotros", "href": "/about/" },
+    { "label": "Contacto", "href": "/contact/" }
+  ]
+}

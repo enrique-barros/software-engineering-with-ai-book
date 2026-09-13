@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      @font-face {
+        font-family: "Schibsted Grotesk Variable";
+        font-weight: 400 900;
+        src: url("file:///C:/Users/PF/Desktop/labs/startup-site/node_modules/@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2")
+          format("woff2-variations");
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        width: 1200px;
+        height: 630px;
+        background: #f6f6f1;
+        font-family: "Schibsted Grotesk Variable", system-ui, sans-serif;
+        color: #182623;
+        padding: 72px 84px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+      .brand svg {
+        width: 56px;
+        height: 56px;
+      }
+      .brand-name {
+        font-size: 34px;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: #12604a;
+      }
+      .tagline {
+        font-size: 60px;
+        font-weight: 700;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+        max-width: 980px;
+        color: #182623;
+      }
+      .tagline em {
+        font-style: normal;
+        color: #12604a;
+      }
+      .footer-line {
+        font-size: 28px;
+        color: #56635d;
+        font-weight: 400;
+      }
+      .rule {
+        width: 88px;
+        height: 6px;
+        border-radius: 9999px;
+        background: #b08626;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="brand">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+        <rect width="128" height="128" rx="28" fill="#12604a" />
+        <rect x="22" y="46" width="84" height="18" rx="9" fill="#f6f6f1" />
+        <rect x="36" y="72" width="64" height="18" rx="9" fill="#f6f6f1" opacity="0.7" />
+      </svg>
+      <div class="brand-name">Corriente</div>
+    </div>
+    <div>
+      <h1 class="tagline">Pagos <em>en movimiento</em>.<br />Con precisión de libro mayor.</h1>
+      <div class="rule"></div>
+    </div>
+    <div class="footer-line">corriente.example · infraestructura de pagos clara, rápida y para todos</div>
+  </body>
+</html>

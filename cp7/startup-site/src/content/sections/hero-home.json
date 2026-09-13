@@ -1,0 +1,7 @@
+{
+  "type": "hero",
+  "title": "El dinero en movimiento, sin que tengas que seguirlo.",
+  "lead": "Corriente une cuenta, tarjetas y cobros en una sola aplicación. El dinero entra, sale y cuadra solo, con la precisión de un libro mayor.",
+  "cta": { "label": "Crear tu cuenta", "href": "/contact/" },
+  "secondaryCta": { "label": "Ver cómo funciona", "href": "/features/" }
+}

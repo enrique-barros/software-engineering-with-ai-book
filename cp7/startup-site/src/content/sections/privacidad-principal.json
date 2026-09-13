@@ -1,0 +1,55 @@
+{
+  "type": "content",
+  "id": "privacidad-principal",
+  "title": "Privacidad",
+  "intro": "Nos tomamos tus datos con la misma seriedad que tu dinero. Esto es lo que recogemos, para qué y qué puedes hacer al respecto.",
+  "meta": "Última actualización: septiembre de 2026",
+  "blocks": [
+    {
+      "heading": "Qué datos recogemos",
+      "paragraphs": [
+        "Solo lo imprescindible para darte el servicio y cumplir con nuestras obligaciones como entidad de pagos."
+      ],
+      "bullets": [
+        "Datos de identificación y contacto que nos facilitas al crear tu cuenta.",
+        "Movimientos y saldos de tu cuenta, para mostrártelos y cuadrar tu libro.",
+        "Datos técnicos de uso de la aplicación, para que funcione y no se rompa."
+      ]
+    },
+    {
+      "heading": "Para qué los usamos",
+      "paragraphs": [
+        "Para prestarte el servicio, mantenerlo seguro y avisarte cuando algo importa. No los usamos para otra cosa."
+      ],
+      "bullets": [
+        "Gestionar tu cuenta, tus cobros y tus transferencias.",
+        "Prevenir el fraude y cumplir la ley contra el blanqueo de capitales.",
+        "Avisarte de cambios que afectan a tu dinero o a tus condiciones."
+      ]
+    },
+    {
+      "heading": "Con quién los compartimos",
+      "paragraphs": [
+        "Con los proveedores que hacen posible el servicio —bancos, redes de tarjetas y sistemas de autenticación— y con las autoridades cuando la ley nos obliga. Nunca vendemos tus datos."
+      ]
+    },
+    {
+      "heading": "Cuánto tiempo los conservamos",
+      "paragraphs": [
+        "Mientras tengas la cuenta activa y, después, el tiempo que exija la normativa de pagos y fiscal. Cuando ya no hacen falta, se eliminan o se anonimizan."
+      ]
+    },
+    {
+      "heading": "Tus derechos",
+      "paragraphs": [
+        "Puedes acceder, rectificar, portar y pedir que borremos tus datos, y oponerte a ciertos usos. Lo pedimos en un mensaje."
+      ],
+      "links": [
+        {
+          "label": "Escribir a soporte",
+          "href": "mailto:soporte@corriente.example"
+        }
+      ]
+    }
+  ]
+}

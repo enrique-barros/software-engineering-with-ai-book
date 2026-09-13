@@ -1,0 +1,14 @@
+{
+  "type": "content",
+  "id": "404-principal",
+  "title": "Página no encontrada",
+  "intro": "La dirección que buscas no existe o se ha movido. Tu dinero sigue en su sitio; elige por dónde seguir.",
+  "blocks": [
+    {
+      "links": [
+        { "label": "Volver al inicio", "href": "/" },
+        { "label": "Ver características", "href": "/features/" }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+---
+type Padding = "top" | "both" | "bottom";
+type Tone = "default" | "primary" | "muted";
+type HeadingLevel = "h1" | "h2";
+
+interface Props {
+  id?: string;
+  heading?: string;
+  intro?: string;
+  padding?: Padding;
+  tone?: Tone;
+  headingLevel?: HeadingLevel;
+  class?: string;
+}
+
+const {
+  id,
+  heading,
+  intro,
+  padding = "top",
+  tone = "default",
+  headingLevel = "h2",
+  class: className,
+} = Astro.props;
+
+const onPrimary = tone === "primary";
+
+const headingClass = [
+  headingLevel === "h1" ? "text-4xl" : "text-3xl",
+  "font-semibold tracking-display",
+  onPrimary ? "text-on-primary" : "text-ink",
+].join(" ");
+
+const pads: Record<Padding, string> = {
+  top: "pt-[var(--section-y)]",
+  both: "py-[var(--section-y)]",
+  bottom: "pb-[var(--section-y)]",
+};
+
+const tones: Record<Tone, string> = {
+  default: "",
+  primary: "bg-primary",
+  muted: "bg-surface-muted",
+};
+---
+
+<section
+  id={id}
+  aria-labelledby={id && heading ? `${id}-heading` : undefined}
+  class:list={[tones[tone], pads[padding], className]}
+>
+  <div class="mx-auto w-full max-w-(--container-site) px-6">
+    {heading && (
+      <div class="max-w-xl">
+        {headingLevel === "h1" ? (
+          <h1 id={id ? `${id}-heading` : undefined} class={headingClass}>
+            {heading}
+          </h1>
+        ) : (
+          <h2 id={id ? `${id}-heading` : undefined} class={headingClass}>
+            {heading}
+          </h2>
+        )}
+        {intro && (
+          <p
+            class:list={[
+              "mt-3 max-w-[var(--measure)] text-lg leading-relaxed",
+              onPrimary ? "text-primary-muted" : "text-ink-muted",
+            ]}
+          >
+            {intro}
+          </p>
+        )}
+      </div>
+    )}
+    <slot />
+  </div>
+</section>

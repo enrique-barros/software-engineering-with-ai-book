@@ -1,0 +1,22 @@
+{
+  "type": "testimonials",
+  "id": "prueba-social",
+  "title": "Quienes ya mueven su dinero con Corriente",
+  "items": [
+    {
+      "quote": "Cerraba la conciliación los domingos. Ahora los asientos cuadran solos y cierro el viernes antes de ir a por el pan.",
+      "author": "Marta Gil",
+      "role": "Dueña de Panadería El Aroma"
+    },
+    {
+      "quote": "El dinero llega al instante y el libro está donde lo espero. Nadie más nos lo cuadra.",
+      "author": "Diego Roca",
+      "role": "Cofundador de Estudio Roca y Peña"
+    },
+    {
+      "quote": "El terminal y la cuenta son, por fin, la misma cosa. Un solo lugar para seguir mis números.",
+      "author": "Lucía Peña",
+      "role": "Hostelera en La Taberna"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+---
+import { getEntry } from "astro:content";
+
+const [siteEntry, navMainEntry, navLegalEntry] = await Promise.all([
+  getEntry("site", "config"),
+  getEntry("navMain", "config"),
+  getEntry("navLegal", "config"),
+]);
+
+if (!siteEntry || !navMainEntry || !navLegalEntry) {
+  throw new Error(
+    "Colección 'site', 'navMain' o 'navLegal' sin la entrada 'config'",
+  );
+}
+
+const site = siteEntry.data;
+const nav = navMainEntry.data.items;
+const legalNav = navLegalEntry.data.items;
+const year = new Date().getFullYear();
+---
+
+<footer class="border-border border-t">
+  <div class="mx-auto w-full max-w-(--container-site) px-6 pb-10 pt-14">
+    <div class="flex flex-col gap-10 md:flex-row md:justify-between">
+      <div class="max-w-xs">
+        <a
+          href="/"
+          class="text-ink flex items-center gap-2.5 font-semibold transition-colors hover:text-primary"
+        >
+          <svg
+            class="h-7 w-7 shrink-0"
+            viewBox="0 0 26 26"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect width="26" height="26" rx="7" fill="var(--color-primary)" />
+            <rect
+              x="5.5"
+              y="8.75"
+              width="15"
+              height="3.25"
+              rx="1.625"
+              fill="var(--color-bg)"
+            />
+            <rect
+              x="8"
+              y="14.75"
+              width="12.5"
+              height="3.25"
+              rx="1.625"
+              fill="var(--color-bg)"
+              opacity="0.7"
+            />
+          </svg>
+          <span class="text-lg tracking-display">{site.name}</span>
+        </a>
+        <p class="text-ink-muted mt-4 text-sm">{site.tagline}</p>
+      </div>
+
+      <nav
+        aria-label="Pie"
+        class="grid grid-cols-2 gap-10 sm:grid-cols-[13rem_13rem]"
+      >
+        <div>
+          <p class="text-ink-faint text-xs font-semibold">Producto</p>
+          <ul class="mt-4 space-y-2.5">
+            {nav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-ink-muted hover:text-ink text-sm font-medium transition-colors"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <p class="text-ink-faint text-xs font-semibold">Legal</p>
+          <ul class="mt-4 space-y-2.5">
+            {legalNav.map((item) => (
+              <li>
+                <a
+                  href={item.href}
+                  class="text-ink-muted hover:text-ink text-sm font-medium transition-colors"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <p class="text-ink-faint border-border mt-12 border-t pt-6 text-xs">
+      © {year} {site.name}. Todos los derechos reservados.
+    </p>
+  </div>
+</footer>

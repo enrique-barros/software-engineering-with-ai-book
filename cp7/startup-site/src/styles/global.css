@@ -1,0 +1,152 @@
+@import "@fontsource-variable/schibsted-grotesk";
+@import "tailwindcss";
+
+/* Solo se escanea el código de la app: skills y docs contienen clases de ejemplo que generan utilidades basura. */
+@source not "../../.agents";
+@source not "../../docs";
+
+/*
+ * Sistema de diseño — fintech / pagos ("el dinero en movimiento").
+ * Fuente viva: docs/DESIGN.md. Solo cambiar tokens aquí, nunca en componentes.
+ */
+
+@theme {
+  /* Tipografía: una única familia variable (pesos 400–700), autoalojada. */
+  --font-sans:
+    "Schibsted Grotesk Variable", "Schibsted Grotesk", system-ui, -apple-system,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Color — neutros (papel, no crema) */
+  --color-bg: #f6f6f1;
+  --color-surface: #ffffff;
+  --color-surface-muted: #ebece4;
+  --color-ink: #182623;
+  --color-ink-muted: #56635d;
+  --color-ink-faint: #67736c;
+  --color-border: #d8d9cd;
+  --color-border-strong: #b7bbb0;
+
+  /* Color — primario: verde "libro mayor" (petrol) */
+  --color-primary: #12604a;
+  --color-primary-hover: #0d4e3c;
+  --color-primary-active: #0a4031;
+  --color-primary-muted: #e0ece7;
+  --color-on-primary: #ffffff;
+
+  /* Color — acento: latón (uso escaso: rellenos/etiquetas/gráficas) */
+  --color-accent: #b08626;
+  --color-accent-hover: #8f6d1e;
+  --color-accent-active: #755818;
+  --color-on-accent: #1a1408;
+
+  /* Color — semánticos */
+  --color-success: #1e7a4f;
+  --color-danger: #ad2e2e;
+  --color-warning: #8f6a14;
+  --color-info: #2b5f8e;
+
+  /* Tipografía — escala fluida (clamp()); utilidades text-* */
+  --text-xs: 0.8125rem;
+  --text-xs--line-height: 1.45;
+  --text-sm: 0.9375rem;
+  --text-sm--line-height: 1.5;
+  --text-base: 1rem;
+  --text-base--line-height: 1.6;
+  --text-lg: 1.125rem;
+  --text-lg--line-height: 1.55;
+  --text-xl: 1.25rem;
+  --text-xl--line-height: 1.45;
+  --text-2xl: clamp(1.375rem, 1.15rem + 0.9vw, 1.625rem);
+  --text-2xl--line-height: 1.3;
+  --text-3xl: clamp(1.625rem, 1.3rem + 1.5vw, 2.125rem);
+  --text-3xl--line-height: 1.25;
+  --text-4xl: clamp(2rem, 1.5rem + 2.3vw, 3rem);
+  --text-4xl--line-height: 1.15;
+  --text-5xl: clamp(2.5rem, 1.8rem + 3.3vw, 4rem);
+  --text-5xl--line-height: 1.08;
+  --text-6xl: clamp(3rem, 2.1rem + 4.4vw, 5.25rem);
+  --text-6xl--line-height: 1.05;
+
+  /* Tipografía — espaciado de letras para display */
+  --tracking-display: -0.03em;
+
+  /* Radius — valores discretos */
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Sombra — tintadas con la tinta del sistema (no gris genérico) */
+  --shadow-sm: 0 1px 2px 0 rgb(24 38 35 / 0.06);
+  --shadow-md:
+    0 1px 2px -1px rgb(24 38 35 / 0.08), 0 6px 16px -6px rgb(24 38 35 / 0.12);
+  --shadow-lg:
+    0 2px 4px -2px rgb(24 38 35 / 0.08), 0 16px 40px -12px rgb(24 38 35 / 0.2);
+}
+
+/* Variables sin utilidad asociada (no generan clases) */
+:root {
+  --section-y: clamp(
+    4rem,
+    7vw,
+    6.5rem
+  ); /* ritmo vertical de sección, único valor */
+  --measure: 62ch; /* ancho máximo de lectura cómoda */
+  --container-site: 72rem; /* shell del sitio: contenedor compartido header/main/footer */
+  --header-h: 4rem; /* altura del header sticky (h-16); para anclas */
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    line-height: var(--text-base--line-height);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  /* Anclas y destinos de skip-link no quedan ocultos bajo el header sticky */
+  [id] {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+
+  ::selection {
+    background-color: color-mix(in srgb, var(--color-primary) 25%, transparent);
+    color: var(--color-ink);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    /* View Transitions / ClientRouter: sin crossfade si hay reducción de movimiento */
+    ::view-transition-group(*),
+    ::view-transition-old(*),
+    ::view-transition-new(*) {
+      animation: none !important;
+    }
+  }
+}

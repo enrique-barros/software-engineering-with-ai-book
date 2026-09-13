@@ -1,0 +1,40 @@
+{
+  "type": "content",
+  "id": "about-principal",
+  "title": "Sobre nosotros",
+  "intro": "Corriente empezó en una panadería: tres terminales, dos cuentas y un libro que no cuadraba los domingos. Queríamos un banco que se comportara como debe, y lo hemos construido.",
+  "blocks": [
+    {
+      "heading": "De dónde viene el nombre",
+      "paragraphs": [
+        "Corriente es cuenta corriente y flujo al mismo tiempo: el dinero en movimiento y la persona que lo mueve. El nombre es también la promesa —lo que entra, sale y cuadra sin que tengas que perseguirlo."
+      ]
+    },
+    {
+      "heading": "Lo que creemos",
+      "bullets": [
+        "La claridad no es un extra: cada movimiento se explica solo.",
+        "El dinero no debería esperar: lo que entra, está.",
+        "El trato es parte del producto: responder como personas no cuesta caro."
+      ]
+    },
+    {
+      "heading": "Cómo trabajamos",
+      "paragraphs": [
+        "Somos un equipo pequeño, sin sucursales y sin call centers. Escuchamos a quien usa Corriente y decidimos con datos, no con comité."
+      ],
+      "bullets": [
+        "Sin comisiones escondidas: si algo cuesta, lo ves antes de pulsar.",
+        "Menos pantallas y más respuesta: cada semana se publica lo que cambia.",
+        "Nada de letra pequeña que contradiga lo que dice la aplicación."
+      ]
+    },
+    {
+      "heading": "Habla con nosotros",
+      "paragraphs": [
+        "Si quieres saber más o llevar Corriente a tu negocio, escríbenos."
+      ],
+      "links": [{ "label": "Escribirnos", "href": "/contact/" }]
+    }
+  ]
+}

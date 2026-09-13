@@ -1,0 +1,23 @@
+{
+  "type": "features",
+  "id": "por-que",
+  "title": "Todo lo que toca tu dinero, en una sola cuenta.",
+  "intro": "Sin terminales aparte, sin pasos intermedios y sin conciliación de fin de mes.",
+  "items": [
+    {
+      "icon": "terminal",
+      "title": "Cobra en cualquier parte",
+      "description": "De un link de pago a un TPV para el mostrador: el cobro aterriza al instante en tu cuenta."
+    },
+    {
+      "icon": "transfer",
+      "title": "Envía en segundos",
+      "description": "Transfiere a cualquier negocio o persona sin esperas ni pasos intermedios."
+    },
+    {
+      "icon": "ledger",
+      "title": "Cuadra solo",
+      "description": "Cada movimiento se anota solo en tu libro. Lo que ganas y lo que gastas, siempre al día."
+    }
+  ]
+}

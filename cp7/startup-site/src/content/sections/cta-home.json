@@ -1,0 +1,7 @@
+{
+  "type": "cta",
+  "id": "empieza",
+  "title": "Tu dinero, en movimiento hoy.",
+  "lead": "Crea tu cuenta en unos minutos. Sin comisiones de alta y sin contrato de permanencia.",
+  "cta": { "label": "Crear tu cuenta", "href": "/contact/" }
+}

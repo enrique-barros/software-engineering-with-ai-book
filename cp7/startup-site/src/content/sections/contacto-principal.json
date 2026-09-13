@@ -1,0 +1,48 @@
+{
+  "type": "content",
+  "id": "contacto-principal",
+  "title": "Contacto",
+  "intro": "Habla con Corriente: ventas, soporte y prensa. Estamos a un mensaje.",
+  "blocks": [
+    {
+      "heading": "Ventas y alta",
+      "paragraphs": [
+        "Cuentas, tarjetas y cobros para tu negocio. Te respondemos en menos de un día laborable."
+      ],
+      "links": [
+        {
+          "label": "hola@corriente.example",
+          "href": "mailto:hola@corriente.example"
+        }
+      ]
+    },
+    {
+      "heading": "Soporte",
+      "paragraphs": [
+        "Dudas con un pago, una tarjeta o un terminal: aquí estamos. Si algo no cuadra, lo cuadramos."
+      ],
+      "links": [
+        {
+          "label": "soporte@corriente.example",
+          "href": "mailto:soporte@corriente.example"
+        }
+      ]
+    },
+    {
+      "heading": "Prensa",
+      "paragraphs": ["Notas, datos y material para medios."],
+      "links": [
+        {
+          "label": "prensa@corriente.example",
+          "href": "mailto:prensa@corriente.example"
+        }
+      ]
+    },
+    {
+      "heading": "Horario y oficina",
+      "paragraphs": [
+        "Atendemos de lunes a viernes, de 9:00 a 18:00 (hora peninsular). Nuestra oficina está en Madrid, pero Corriente vive donde tú estés."
+      ]
+    }
+  ]
+}

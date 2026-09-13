@@ -1,0 +1,48 @@
+{
+  "type": "content",
+  "id": "features-principal",
+  "title": "Características",
+  "intro": "Una cuenta, tarjetas y cobros en la misma aplicación. Aquí está, en detalle, lo que Corriente hace por ti.",
+  "blocks": [
+    {
+      "heading": "Cobra de la forma que prefieras",
+      "paragraphs": [
+        "Tu cliente ni se entera de que hubo un banco por medio: el cobro llega y se asienta solo."
+      ],
+      "bullets": [
+        "Links de pago que se comparten en segundos, con o sin cuenta.",
+        "TPV para el mostrador y para eventos fuera del local.",
+        "Cobros recurrentes programados: pago al alquiler, la cuota o la suscripción sin que tengas que acordarte."
+      ]
+    },
+    {
+      "heading": "Tu dinero, diario y al instante",
+      "paragraphs": [
+        "Lo que entra está, y lo que envías llega. Sin pasos intermedios y sin esperas de fin de semana."
+      ],
+      "bullets": [
+        "Tarjetas físicas y virtuales, creadas y bloqueadas desde la misma aplicación.",
+        "Transferencias que se mueven en segundos, a cualquier negocio o persona.",
+        "Retiradas y pagos sin terminal aparte: la cuenta es el mostrador."
+      ]
+    },
+    {
+      "heading": "Un libro mayor que cuadra solo",
+      "paragraphs": [
+        "Cada movimiento se anota en tu libro con la precisión de un asiento de contabilidad. Tu parte es mirar, no conciliar."
+      ],
+      "bullets": [
+        "Cobros, tarjetas y transferencias apuntados en el mismo sitio, al minuto.",
+        "Un resumen al cierre de cada día, listo para tu asesoría.",
+        "Exporta tu libro cuando lo necesites: tú decides dónde vive tu contabilidad."
+      ]
+    },
+    {
+      "heading": "Abrirse es cosa de minutos",
+      "paragraphs": [
+        "Sin comisiones de alta, sin contrato de permanencia y sin papeles que no entiendas. Si algo no se ve claro, pregúntanos: estamos a un mensaje."
+      ],
+      "links": [{ "label": "Crear tu cuenta", "href": "/contact/" }]
+    }
+  ]
+}

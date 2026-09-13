@@ -1,0 +1,95 @@
+---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { getCollection, getEntry } from "astro:content";
+import { ClientRouter } from "astro:transitions";
+import "../styles/global.css";
+// Preload de la fuente latin real (la que usan los textos del sitio): el CSS de
+// Fontsource también la carga vía unicode-range; preearla adelanta el LCP y
+// evita el destello de `font-display: swap` en el hero.
+import fontHref from "@fontsource-variable/schibsted-grotesk/files/schibsted-grotesk-latin-wght-normal.woff2?url";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  lang?: string;
+}
+
+const { title, description, canonical, lang = "es" } = Astro.props;
+
+const [siteEntry, pages] = await Promise.all([
+  getEntry("site", "config"),
+  getCollection("pages"),
+]);
+
+if (!siteEntry) {
+  throw new Error("Colección 'site' sin la entrada 'config'");
+}
+
+const site = siteEntry.data;
+const path = Astro.url.pathname;
+const page = pages.find((p) => p.data.route === path);
+
+const effectiveTitle = title ?? page?.data.title ?? site.name;
+const effectiveDescription =
+  description ?? page?.data.description ?? site.description;
+
+const pageUrl = new URL(Astro.url.pathname, Astro.site);
+const canonicalUrl = canonical ?? pageUrl.href;
+const ogImageUrl = new URL("/og.png", Astro.site);
+const pageTitle = `${effectiveTitle} · ${site.name}`;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link
+      rel="preload"
+      href={fontHref}
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <meta name="generator" content={Astro.generator} />
+    <ClientRouter />
+    <title>{pageTitle}</title>
+    <meta name="description" content={effectiveDescription} />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={effectiveDescription} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:locale" content={site.locale} />
+    <meta property="og:image" content={ogImageUrl.href} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={effectiveDescription} />
+    <meta name="twitter:image" content={ogImageUrl.href} />
+  </head>
+  <body>
+    <a
+      href="#contenido"
+      class="bg-primary text-on-primary sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:shadow-lg"
+    >
+      Saltar al contenido
+    </a>
+    <Header />
+    <main id="contenido" tabindex="-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

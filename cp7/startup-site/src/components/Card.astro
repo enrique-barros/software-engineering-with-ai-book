@@ -1,0 +1,31 @@
+---
+type Shadow = "none" | "sm" | "md" | "lg";
+
+interface Props {
+  shadow?: Shadow;
+  padded?: boolean;
+  class?: string;
+}
+
+const { shadow = "md", padded = true, class: className } = Astro.props;
+
+const shadows: Record<Shadow, string> = {
+  none: "",
+  sm: "shadow-sm",
+  md: "shadow-md",
+  lg: "shadow-lg",
+};
+
+const cls = [
+  "border-border bg-surface rounded-lg border",
+  shadows[shadow],
+  padded && "p-6",
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<div class={cls}>
+  <slot />
+</div>

@@ -1,0 +1,17 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+
+const sections = await getCollection("sections");
+
+const page = sections.find((section) => section.id === "404-principal");
+
+if (!page) {
+  throw new Error("La página 404 requiere la sección '404-principal'");
+}
+---
+
+<BaseLayout>
+  <ContentSection entry={page} headingLevel="h1" padding="both" />
+</BaseLayout>

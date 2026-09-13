@@ -1,0 +1,64 @@
+---
+import Card from "./Card.astro";
+
+const rows = [
+  {
+    label: "Cobro en El Mercado",
+    time: "12:04",
+    amount: "+128,00 €",
+    credit: true,
+  },
+  {
+    label: "Link de pago 0482",
+    time: "14:31",
+    amount: "+46,50 €",
+    credit: true,
+  },
+  {
+    label: "Transferencia a proveedor",
+    time: "16:02",
+    amount: "−312,00 €",
+    credit: false,
+  },
+  {
+    label: "Ventas del día",
+    time: "20:47",
+    amount: "+1.240,00 €",
+    credit: true,
+  },
+];
+---
+
+<!-- Ilustración de marca (no contenido real): se oculta a lectores de pantalla. -->
+<div aria-hidden="true">
+  <Card shadow="md">
+    <p class="text-ink-faint text-sm font-medium">Resumen de hoy</p>
+    <p class="text-ink mt-3 text-4xl font-semibold tabular-nums tracking-display">
+      1.102,50 €
+    </p>
+    <p class="text-ink-faint mt-1 text-xs">Saldo disponible al cierre</p>
+
+    <ul class="border-border mt-6 divide-y divide-border border-t">
+      {rows.map((row) => (
+        <li class="grid grid-cols-[1fr_auto] items-baseline gap-4 py-3">
+          <div>
+            <p class="text-ink text-sm font-medium">{row.label}</p>
+            <p class="text-ink-faint mt-0.5 text-xs">{row.time}</p>
+          </div>
+          <p
+            class:list={[
+              "tabular-nums text-sm font-semibold",
+              row.credit ? "text-accent-hover" : "text-ink-muted",
+            ]}
+          >
+            {row.amount}
+          </p>
+        </li>
+      ))}
+      <li class="grid grid-cols-[1fr_auto] items-baseline gap-4 py-3">
+        <p class="text-ink text-sm font-semibold">Cuadra al cierre</p>
+        <p class="text-primary tabular-nums text-sm font-bold">1.102,50 €</p>
+      </li>
+    </ul>
+  </Card>
+</div>

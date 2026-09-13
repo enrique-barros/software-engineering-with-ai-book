@@ -1,0 +1,32 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContentSection from "../components/ContentSection.astro";
+
+const sections = await getCollection("sections");
+
+// Orden de bloques de la página: solo contenido `content`.
+const order = ["about-principal"];
+const principalId = "about-principal";
+
+const blocks = order
+  .map((id) => sections.find((section) => section.id === id))
+  .filter((section): section is NonNullable<typeof section> =>
+    Boolean(section),
+  );
+
+if (!blocks.some((section) => section.id === principalId)) {
+  throw new Error(
+    "La página de Sobre nosotros requiere la sección 'about-principal'",
+  );
+}
+---
+
+<BaseLayout>
+  {blocks.map((section) => (
+    <ContentSection
+      entry={section}
+      headingLevel={section.id === principalId ? "h1" : "h2"}
+    />
+  ))}
+</BaseLayout>

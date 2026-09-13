@@ -1,0 +1,6 @@
+{
+  "items": [
+    { "label": "Privacidad", "href": "/privacidad/" },
+    { "label": "Términos", "href": "/terminos/" }
+  ]
+}

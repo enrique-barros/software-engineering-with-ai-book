@@ -1,0 +1,65 @@
+{
+  "type": "content",
+  "id": "terminos-principal",
+  "title": "Términos",
+  "intro": "Las reglas del juego, dichas claras. Si algo no se entiende, pregúntanos antes de aceptar.",
+  "meta": "Última actualización: septiembre de 2026",
+  "blocks": [
+    {
+      "heading": "El servicio",
+      "paragraphs": [
+        "Corriente te ofrece una cuenta de pagos con la que puedes recibir, enviar y gestionar dinero: tarjetas, links de pago, TPV y transferencias. El servicio se presta conforme a estos términos y a la normativa de servicios de pago que nos aplica."
+      ]
+    },
+    {
+      "heading": "Tu cuenta",
+      "paragraphs": [
+        "La cuenta es personal e intransferible. Eres responsable de cuidar tus credenciales y de avisarnos cuanto antes si sospechas un uso no autorizado."
+      ],
+      "bullets": [
+        "Usa la cuenta para actividad que tú mismo gestionas: no la prestes ni la revendas.",
+        "Si detectamos un uso indebido, podemos pausar la cuenta y te lo explicamos.",
+        "Puedes cerrar tu cuenta cuando quieras, sin permanencia y sin penalización."
+      ]
+    },
+    {
+      "heading": "Uso permitido",
+      "paragraphs": [
+        "Corriente está pensado para negocios y personas que mueven dinero de forma legítima."
+      ],
+      "bullets": [
+        "Nada de actividades ilegales ni de dinero con origen no verificable.",
+        "Los cobros a clientes deben indicar claramente qué estás vendiendo.",
+        "Si una operación levanta dudas, te pedimos documentación antes de cuestionarnos nada."
+      ]
+    },
+    {
+      "heading": "Responsabilidades",
+      "paragraphs": [
+        "Respondemos de nuestros errores y de las operaciones que autorizas, conforme a la ley. No respondemos de lo que depende de tu dispositivo, tu conexión o de terceros fuera de nuestro control."
+      ]
+    },
+    {
+      "heading": "Cancelación",
+      "paragraphs": [
+        "Tú puedes cerrar la cuenta en cualquier momento desde la aplicación o escribiéndonos. Nosotros podemos cerrarla si violas estos términos o la ley; antes avisamos y te damos tiempo para resolverlo."
+      ]
+    },
+    {
+      "heading": "Cambios en estos términos",
+      "paragraphs": [
+        "Si los cambiamos, te lo avisamos con antelación y te explicamos qué cambia. Los nuevos términos se aplican solo si sigues usando el servicio."
+      ]
+    },
+    {
+      "heading": "Contacto",
+      "paragraphs": ["Para cualquier duda sobre estos términos, escríbenos."],
+      "links": [
+        {
+          "label": "Escribir a soporte",
+          "href": "mailto:soporte@corriente.example"
+        }
+      ]
+    }
+  ]
+}
