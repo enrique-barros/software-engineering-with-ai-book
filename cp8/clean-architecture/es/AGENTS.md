@@ -7,7 +7,7 @@ Este proyecto sigue los principios de Clean Architecture de Robert C. Martin. To
 Contiene exclusivamente:
 
 - Entidades de negocio.
-- Objetos de valor (Value Objects).
+- Objetos de valor (value objects).
 - Interfaces de repositorios (puertos de salida).
 - Excepciones/Errores propios del dominio.
 
