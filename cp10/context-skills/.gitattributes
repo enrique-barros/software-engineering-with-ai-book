@@ -1,0 +1,23 @@
+# Normalización de finales de línea
+# Los scripts sh/sql se estandarizan a LF (el entorno aislado del reviewer es Linux).
+* text=auto
+
+# Scripts del harness y migraciones: siempre LF
+*.sh text eol=lf
+*.sql text eol=lf
+*.py text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.ts text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+
+# Binarios: no se tocan
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.zip binary
+*.gz binary

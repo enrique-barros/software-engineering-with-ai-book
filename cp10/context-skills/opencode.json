@@ -1,0 +1,214 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+
+  "default_agent": "master-orchestrator",
+  "subagent_depth": 2,
+  "instructions": ["agents.md", "docs/diagrama.md"],
+
+  "compaction": {
+    "auto": true,
+    "tail_turns": 10,
+    "preserve_recent_tokens": 24000,
+    "reserved": 4000
+  },
+
+  "tool_output": {
+    "max_lines": 400,
+    "max_bytes": 32768
+  },
+
+  "agent": {
+    "master-orchestrator": {
+      "mode": "primary",
+      "model": "opencode/big-pickle",
+      "color": "#6366f1",
+      "temperature": 0.4,
+      "steps": 100,
+      "description": "Estratega central del grafo: controla estado, delega subtareas y evalúa reportes del Reviewer.",
+      "prompt": "Eres @MasterOrchestrator, el estratega central del grafo multiagente. El objetivo del proyecto es la aplicación completa: PostgreSQL + FastAPI + React/Tailwind. Antes de actuar lee agents.md, docs/diagrama.md y docs/master-orchestrator.md. Eres propietario del estado global (state/**): lo consultas y lo actualizas, pero NUNCA editas código fuente (src/** está denegado en tu harness). Delegas subtareas a @DataEngineer, @BackendCoder y @FrontendCoder mediante contratos JSON estrictos; @Reviewer solo valida. Aplicas el bucle de retroalimentación MO -> subagente -> Reviewer -> reporte -> MO, el límite de 3 reintentos por subtarea, los checkpoints/rollbacks y el presupuesto máximo de tokens por ejecución. Cada subtarea se emite con entrada filtrada (Context Windowing). Responde en español.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "todowrite": "allow",
+        "webfetch": "allow",
+        "websearch": "allow",
+        "question": "allow",
+        "task": "allow",
+        "edit": {
+          "**": "deny",
+          "state/**": "allow",
+          "**/*.md": "allow"
+        },
+        "bash": {
+          "*": "deny",
+          "git status *": "allow",
+          "git log *": "allow",
+          "git diff *": "allow",
+          "git branch *": "allow",
+          "git rev-parse *": "allow"
+        }
+      }
+    },
+
+    "data-engineer": {
+      "mode": "subagent",
+      "model": "opencode/big-pickle",
+      "color": "#10b981",
+      "temperature": 0.3,
+      "steps": 40,
+      "description": "Propietario de PostgreSQL (schema, migraciones, seeds) e ingesta de datasets de Kaggle.",
+      "prompt": "Eres @DataEngineer. Posees la capa de datos: PostgreSQL (schema, migraciones y seeds) y la ingesta de datasets de Kaggle. Antes de actuar lee docs/data-engineer.md. Solo puedes modificar archivos bajo db/**, datasets/** y sql/**. Tienes prohibido tocar código fuente (src/**) y el cliente web. No ejecutas servidores web (ni uvicorn, ni npm) ni herramientas del backend/frontend. Entregas tus resultados en el esquema JSON del Contrato de Datos. Responde en español.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "todowrite": "allow",
+        "task": "deny",
+        "question": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "external_directory": {
+          "**": "deny",
+          "~/data/**": "allow"
+        },
+        "edit": {
+          "**": "deny",
+          "db/**": "allow",
+          "datasets/**": "allow",
+          "sql/**": "allow"
+        },
+        "bash": {
+          "*": "deny",
+          "docker compose *": "allow",
+          "docker-compose *": "allow",
+          "psql *": "allow",
+          "pg_dump *": "allow",
+          "pg_restore *": "allow",
+          "kaggle *": "allow",
+          "git status *": "allow",
+          "git diff *": "allow"
+        }
+      }
+    },
+
+    "backend-coder": {
+      "mode": "subagent",
+      "model": "opencode/big-pickle",
+      "color": "#f59e0b",
+      "temperature": 0.4,
+      "steps": 40,
+      "description": "Construye la API REST con FastAPI (Python): routers, schemas, modelos y tests de backend.",
+      "prompt": "Eres @BackendCoder. Construyes la API REST con FastAPI (Python). Antes de actuar lee docs/backend-coder.md. Solo puedes modificar archivos bajo src/backend/**. No tocas PostgreSQL directamente (psql está denegado): la base de datos es de @DataEngineer y solo la accedes a través de tu capa de datos (SQLAlchemy/ORM). No tocas el frontend (src/frontend/**, public/**) ni ejecutas npm/npx. Puedes ejecutar python, pip, uvicorn, pytest y ruff. Entregas tu resultado en el esquema JSON del Contrato de Datos. Responde en español.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "todowrite": "allow",
+        "task": "deny",
+        "question": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "edit": {
+          "**": "deny",
+          "src/backend/**": "allow"
+        },
+        "bash": {
+          "*": "deny",
+          "python*": "allow",
+          "pip*": "allow",
+          "uvicorn*": "allow",
+          "pytest*": "allow",
+          "ruff*": "allow",
+          "git status *": "allow",
+          "git diff *": "allow",
+          "git log *": "allow"
+        }
+      }
+    },
+
+    "frontend-coder": {
+      "mode": "subagent",
+      "model": "opencode/big-pickle",
+      "color": "#ec4899",
+      "temperature": 0.5,
+      "steps": 40,
+      "description": "Construye el cliente web interactivo con React, TypeScript, Vite y Tailwind CSS.",
+      "prompt": "Eres @FrontendCoder. Construyes el cliente web interactivo con React y Tailwind CSS. Antes de actuar lee docs/frontend-coder.md. Solo puedes modificar archivos bajo src/frontend/** y public/**. No tocas el backend ni la base de datos (prohibido python, psql, docker). Solo comandos del ecosistema frontend: npm, npx (vite, tsc, tailwindcss, eslint) y node. Entregas tu resultado en el esquema JSON del Contrato de Datos. Responde en español.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "todowrite": "allow",
+        "task": "deny",
+        "question": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "edit": {
+          "**": "deny",
+          "src/frontend/**": "allow",
+          "public/**": "allow"
+        },
+        "bash": {
+          "*": "deny",
+          "npm*": "allow",
+          "npx vite *": "allow",
+          "npx tsc *": "allow",
+          "npx tailwind*": "allow",
+          "npx eslint *": "allow",
+          "node*": "allow",
+          "git status *": "allow",
+          "git diff *": "allow",
+          "git log *": "allow"
+        }
+      }
+    },
+
+    "reviewer": {
+      "mode": "subagent",
+      "model": "opencode/nemotron-3-ultra-free",
+      "color": "#ef4444",
+      "temperature": 0.1,
+      "steps": 25,
+      "description": "Validador en entorno aislado (Docker Compose). Ejecuta linters, builds y tests. Solo lectura de código.",
+      "prompt": "Eres @Reviewer, el validador del grafo. Tienes acceso READ-ONLY al código fuente: jamás lo modificas. Antes de actuar lee docs/reviewer.md. Solo ejecutas comandos de lint, build y test, además de Docker Compose dentro del entorno aislado. El único directorio que puedes escribir es artifacts/reviews/** (tus reportes). Emites APROBADO o RECHAZADO con evidencia y el checklist del Contrato de Datos. No lanzas subagentes y no respondes preguntas a la humana: tu salida es el reporte. Responde en español.",
+      "permission": {
+        "read": "allow",
+        "glob": "allow",
+        "grep": "allow",
+        "list": "allow",
+        "todowrite": "deny",
+        "task": "deny",
+        "question": "deny",
+        "webfetch": "deny",
+        "websearch": "deny",
+        "edit": {
+          "**": "deny",
+          "artifacts/reviews/**": "allow"
+        },
+        "bash": {
+          "*": "deny",
+          "docker compose *": "allow",
+          "docker-compose *": "allow",
+          "pytest*": "allow",
+          "ruff*": "allow",
+          "npm test *": "allow",
+          "npm run lint*": "allow",
+          "npm run build*": "allow",
+          "npm run type*": "allow",
+          "npm install *": "allow",
+          "npx tsc *": "allow",
+          "npx eslint *": "allow",
+          "git status *": "allow",
+          "git diff *": "allow",
+          "git show *": "allow",
+          "git log *": "allow"
+        }
+      }
+    }
+  }
+}

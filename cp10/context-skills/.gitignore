@@ -1,0 +1,86 @@
+# ── Secretos y variables de entorno ────────────────────────────────
+# Nunca versionar claves de API ni credenciales (ver .env.example).
+.env
+.env.*
+!.env.example
+*.env
+!.example.env
+.envrc
+
+# Credenciales/ficheros de claves (defensivo; Kaggle vive en ~/.kaggle/)
+kaggle.json
+*.pem
+*.key
+*.p12
+*.pfx
+credentials.json
+.netrc
+
+# ── Memoria compartida y artefactos de ejecución (se generan en runtime) ──
+# Section 5 y 10 de AGENTS.md: el orquestador genera estos archivos al ejecutar.
+state/
+artifacts/
+
+# ── Python ─────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+.eggs/
+.installed.cfg
+*.egg
+
+# Caches y cobertura
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+.hypothesis/
+
+# ── Node / Vite / frontend ─────────────────────────────────────────
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.vite/
+dist-ssr/
+*.tsbuildinfo
+.react-cache/
+web_modules/
+
+# Datos de datasets descargados (no versionar datos crudos)
+datasets/raw/
+datasets/**/*.csv
+datasets/**/*.zip
+datasets/**/*.gz
+datasets/**/*.tar
+datasets/**/*.parquet
+datasets/**/*.jsonl
+
+# ── Logs ───────────────────────────────────────────────────────────
+*.log
+logs/
+*.log.*
+
+# ── IDE / SO ───────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# ── Docker ─────────────────────────────────────────────────────────
+# Los volúmenes locales de contenedores no se versionan
+pgdata/
+*.pid
