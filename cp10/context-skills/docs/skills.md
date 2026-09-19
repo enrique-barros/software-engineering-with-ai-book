@@ -105,7 +105,7 @@ Conforme a la regla de seguridad (sección "REGLA DE SEGURIDAD ESTRICTA" del obj
 
 | Herramienta | Origen oficial | Agente | Variables de entorno requeridas |
 | --- | --- | --- | --- |
-| Cliente PostgreSQL (`psql`, `pg_dump`, `pg_restore`) | PostgreSQL (binarios oficiales, o dentro del contenedor oficial `postgres` vía `docker exec`) | `data-engineer` | `POSTGRES_URL` (o `DATABASE_URL`) — ejemplo `postgresql://app:app@localhost:5432/graph_book` |
+| Cliente PostgreSQL (`psql`, `pg_dump`, `pg_restore`) | PostgreSQL (binarios oficiales, o dentro del contenedor oficial `postgres` vía `docker exec`) | `data-engineer` | `POSTGRES_URL` (o `DATABASE_URL`) — ejemplo `postgresql://app:app@localhost:5432/graph_db` |
 | CLI Kaggle (`kaggle`) | `pip install kaggle` — paquete oficial del equipo Kaggle | `data-engineer` | `KAGGLE_USERNAME`, `KAGGLE_KEY` (credenciales generadas en kaggle.com/settings → API) |
 | `openapi-spec-validator` | PyPI (paquete oficial del proyecto OpenAPI) | `reviewer` | — (validación de `api.openapi.json`) |
 | `pytest` / `ruff` / `eslint` / `tsc` | PyPI y npm (oficiales) | `reviewer` | — |

@@ -5,9 +5,9 @@
 
 ## 1. Propósito y Objetivo del Proyecto
 
-Este repositorio es el proyecto práctico del libro *Sistemas Multiagente y Context Engineering*: la construcción guiada de una aplicación web completa — **PostgreSQL** (datos), **FastAPI** (API REST) y **React + Tailwind CSS** (cliente web) — ejecutada por un grafo de agentes con bucles de retroalimentación.
+Este repositorio es un proyecto práctico de sistemas multiagente y context engineering: la construcción guiada de una aplicación web completa — **PostgreSQL** (datos), **FastAPI** (API REST) y **React + Tailwind CSS** (cliente web) — ejecutada por un grafo de agentes con bucles de retroalimentación.
 
-El grafo no es una metáfora: sus nodos son agentes reales configurados en `opencode.json`, cada uno con roles y permisos propios. Sus aristas son **contratos de datos JSON estrictos** (Section 6). Ejecutar este proyecto equivale a ejecutar el caso de estudio del libro.
+El grafo no es una metáfora: sus nodos son agentes reales configurados en `opencode.json`, cada uno con roles y permisos propios. Sus aristas son **contratos de datos JSON estrictos** (Section 6). Ejecutar este proyecto equivale a ejecutar el caso de estudio completo del grafo.
 
 - **Memoria compartida (MC):** `state/estado.json` — la única fuente de verdad.
 - **Orquestador (MO):** `@MasterOrchestrator` — estratega, único nodo con acceso de escritura a MC.
@@ -18,30 +18,39 @@ El grafo no es una metáfora: sus nodos son agentes reales configurados en `open
 
 El diagrama canónico vive en `docs/diagrama.md` (se carga como instrucción global del harness). Resumen:
 
-```
-             ┌─────────────────────────────────────────┐
-             │            MEMORIA COMPARTIDA (MC)       │
-             │         state/estado.json (estado-v1)    │
-             └────────────────────┬────────────────────┘
-                                  │ <--> (única conexión)
-                     ┌────────────▼────────────┐
-                     │   @MasterOrchestrator    │
-                     └──────┬──────┬──────┬─────┘
-                            │      │      │
-                    TaskContract (entrada filtrada)
-                            │      │      │
-                 ┌──────────▼─┐ ┌──▼────────┐ ┌──▼──────────────┐
-                 │ DataEngineer│ │BackendCoder│ │  FrontendCoder │
-                 └──────────┬─┘ └──┬────────┘ └──┬──────────────┘
-                            │      │      │
-                    DeliverableContract (resultado)
-                            │      │      │
-                     ┌────────▼──────▼──────▼────────┐
-                     │          @Reviewer             │
-                     └──────────────┬────────────────┘
-                                    │ ReviewReport (veredicto + evidencia)
-                                    ▼
-                               @MasterOrchestrator  ──► MC (estado actualizado)
+### DIAGRAMA MERMAID DE REFERENCIA:
+
+```mermaid
+graph TD
+subgraph Memoria compartida
+MC[Estado y contexto global del proyecto]
+end
+
+MO["@MasterOrchestrator<br>(Controla estado y delega)"]
+
+subgraph Subagentes ejecutores
+DE["@DataEngineer<br>(PostgreSQL y Kaggle)"]
+BE["@BackendCoder<br>(FastAPI)"]
+FE["@FrontendCoder<br>(React y Tailwind)"]
+end
+
+REV["@Reviewer<br>(Valida salidas)"]
+
+MC <--> MO
+
+MO -->|Asigna subtarea| DE
+MO -->|Asigna subtarea| BE
+MO -->|Asigna subtarea| FE
+
+DE -->|Resultado de base de datos| REV
+BE -->|Resultado de API| REV
+FE -->|Resultado de interfaz| REV
+
+REV -->|Reporte, fallos o aprobación| MO
+
+style MC fill:#f9f,stroke:#333,stroke-width:2px
+style MO fill:#bbf,stroke:#333,stroke-width:2px
+style REV fill:#ff9,stroke:#333,stroke-width:2px
 ```
 
 **Reglas topológicas (invariantes):**
@@ -55,7 +64,7 @@ El diagrama canónico vive en `docs/diagrama.md` (se carga como instrucción glo
 
 Secuencia canónica para cada objetivo de alto nivel:
 
-1. **Ingesta de objetivo.** MO recibe el objetivo del libro (ej. *"Habilitar GET /api/products"*), consulta MC y lo descompone en subtareas con dependencias topológicas (datos → backend → frontend → revisión).
+1. **Ingesta de objetivo.** MO recibe el objetivo de alto nivel (ej. *"Habilitar GET /api/products"*), consulta MC y lo descompone en subtareas con dependencias topológicas (datos → backend → frontend → revisión).
 2. **Planificación de presupuesto.** MO asigna a cada subtarea un `presupuesto_max_tokens`, registra un `checkpoint` (ref de git + snapshot de opencode) y actualiza MC (`estado = EN_COLA`).
 3. **Delegación (Context Windowing).** MO emite un `TaskContract` a un único ejecutor con **entrada filtrada estrictamente** — solo los artefactos que necesita para esa subtarea, nunca el contexto global completo.
 4. **Ejecución.** El subagente trabaja dentro de su ámbito de permisos y entrega un `DeliverableContract` a MO (`estado = EN_REVISION`).
@@ -67,7 +76,7 @@ Secuencia canónica para cada objetivo de alto nivel:
 
 ## 4. Bucle de Retroalimentación (Feedback Loop)
 
-El bucle es el corazón del libro: **MO → Subagente → Reviewer → Reporte → MO**.
+El bucle es el corazón del sistema: **MO → Subagente → Reviewer → Reporte → MO**.
 
 ```mermaid
 sequenceDiagram
@@ -116,7 +125,7 @@ MC es **un archivo versionado y transaccional**: `state/estado.json`, esquema `e
 ```json
 {
   "esquema": "estado-v1",
-  "proyecto": { "nombre": "graph-book-demo", "version": "0.1.0" },
+  "proyecto": { "nombre": "graph-demo", "version": "0.1.0" },
   "colas": {
     "backlog": ["TASK-004", "TASK-008"],
     "en_curso": ["TASK-007"],
@@ -277,7 +286,9 @@ Detalles y snippets JSON en los documentos de cada agente bajo `docs/`. El detal
 
 ## 9. Recomendaciones de modelo
 
-Los agentes no fijan modelo en el harness a propósito (el proveedor depende del lector). Recomendación del libro por agente, en orden de coste-beneficio:
+El harness fija modelo por agente en `opencode.json` mediante la directiva `model` (formato `proveedor/modelo`): este proyecto usa `opencode/big-pickle` para el orquestador y los ejecutores, y `opencode/nemotron-3-ultra-free` para el reviewer. Para cambiar de proveedor o modelo, edita la directiva `model` de cada agente y reinicia opencode (la configuración no se recarga en caliente).
+
+Referencia de perfiles y temperatura por agente, en orden de coste-beneficio:
 
 | Agente | Perfil | Temperatura |
 | --- | --- | --- |
@@ -293,4 +304,4 @@ Los agentes no fijan modelo en el harness a propósito (el proveedor depende del
 2. Arrancar sesión con `opencode` (el `default_agent` es `master-orchestrator`) o explícitamente `opencode --agent master-orchestrator`.
 3. Dictar el objetivo de alto nivel (ej. *"Pon en marcha la app: schema, API y cliente"*). MO responderá con el plan de subtareas, presupuestos y checkpoints antes de delegar.
 4. Los `state/*.json` se generan en ejecución; los reportes del reviewer caen en `artifacts/reviews/`.
-5. En cada ciclo MO→REV→MO, revisar `presupuesto.consumido` y el `historial` de `state/estado.json` para observar el bucle de retroalimentación en vivo: es la evidencia del capítulo 6 del libro.
+5. En cada ciclo MO→REV→MO, revisar `presupuesto.consumido` y el `historial` de `state/estado.json` para observar el bucle de retroalimentación en vivo: es la evidencia del funcionamiento del grafo en el harness.

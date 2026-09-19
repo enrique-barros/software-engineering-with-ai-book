@@ -4,7 +4,7 @@
 
 ## 1. Rol y Propósito
 
-El orquestador es el *cerebro* del sistema multiagente. Recibe los objetivos de alto nivel del libro (ej. *"Pon en marcha la app: schema, API y cliente"*), consulta la memoria compartida en `state/estado.json` y los descompone en **subtareas con dependencias topológicas** (datos → backend → frontend → revisión).
+El orquestador es el *cerebro* del sistema multiagente. Recibe los objetivos de alto nivel (ej. *"Pon en marcha la app: schema, API y cliente"*), consulta la memoria compartida en `state/estado.json` y los descompone en **subtareas con dependencias topológicas** (datos → backend → frontend → revisión).
 
 Sus responsabilidades, en orden de aparición en un ciclo:
 
@@ -67,7 +67,7 @@ Sus responsabilidades, en orden de aparición en un ciclo:
 
 ### Entrada filtrada (lo que recibe)
 
-- **Objetivo humano de alto nivel** con criterio de aceptación del libro.
+- **Objetivo humano de alto nivel** con criterio de aceptación explícito.
 - **Estado global** `state/estado.json` (esquema `estado-v1`): colas, tareas en curso, presupuesto consumido, checkpoints.
 - **`ReviewReport`** de cada subtarea validada (esquema `review-report-v1`).
 
@@ -119,7 +119,7 @@ Sus responsabilidades, en orden de aparición en un ciclo:
 | Control de versiones | `git` de consulta + snapshots de opencode para checkpoints |
 | Presupuesto | Token presupuestario por subtarea (`presupuesto_max_tokens`) y agregado en MC |
 | Aislamiento de contexto | `tool_output` (400 líneas/32 KiB), `compaction` (tail_turns 10), Context Windowing |
-| Idioma de interacción | Español (instrucciones de libros y humano) |
+| Idioma de interacción | Español (instrucciones del humano y de los agentes) |
 
 ## 5. Bucle de Validación y Manejo de Errores
 
