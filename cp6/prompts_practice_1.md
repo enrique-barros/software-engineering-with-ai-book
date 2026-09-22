@@ -1,6 +1,6 @@
 # Prompt 1
 
-Crea un archivo básico de configuración, solo con el $schema adecuado para OpenCode, aún no añadas reglas de ningún tipo. Utiliza la skill customize-opencode.
+Crea un archivo básico de configuración, solo con el $schema adecuado para OpenCode, aún no añadas reglas de ningún tipo. Utiliza la skill opencode.
 
 # Prompt 2
 

@@ -6,6 +6,8 @@ Código, prompts y proyectos del libro **«Ingeniería de software agéntica con
 [![Idioma](https://img.shields.io/badge/idioma-espa%C3%B1ol-blue)](#)
 [![Licencia](https://img.shields.io/badge/licencia-MIT-green)](#licencia)
 
+> ⚠️ **Actualización:** desde la salida del libro (16 de septiembre de 2026), OpenCode ha implementado algunos cambios. Consulta [**UPDATE.md**](./UPDATE.md) para conocer las novedades más relevantes.
+
 ---
 
 ## Sobre el libro
